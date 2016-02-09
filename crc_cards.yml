@@ -1,0 +1,38 @@
+card:
+  responsibility:
+    - Store suit
+    - Store value
+    - Show readable string
+  collaborators:
+    - Deck
+    - Hand
+dealer:
+  responsibility:
+    - Show just one card
+    - Hit based on hand
+    - Stay
+  collaborators:
+    - Hand
+deck:
+  responsibility:
+    - Store unused cards
+    - Draw a card
+  collaborators:
+    - Card
+participant:
+  responsibility:
+    - Have a hand
+    - Hit
+    - Stay
+  collaborators:
+    - Hand
+player:
+  responsibility:
+
+  collaborators:
+
+hand:
+  responsibility:
+    - Evaluate based on cards in hand
+  collaborators:
+    - Card
