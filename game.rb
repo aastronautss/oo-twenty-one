@@ -4,8 +4,6 @@ require_relative 'dealer'
 require_relative 'deck'
 require_relative 'game_interface'
 
-require 'pry'
-
 class TwentyOneGame
   attr_accessor :player, :dealer, :deck
 
@@ -39,9 +37,7 @@ class TwentyOneGame
 
   def player_turn
     loop do
-      prompt "#{player.name}'s turn:"
-      choice = multiple_choice("What would you like to do?",
-                               { 'h' => 'hit', 's' => 'stay' })
+      choice = player_prompt
 
       if choice == 's'
         prompt "#{player.name} stays."
@@ -78,16 +74,22 @@ class TwentyOneGame
     end
   end
 
+  def player_prompt
+    prompt "#{player.name}'s turn:"
+    multiple_choice("What would you like to do?",
+                    'h' => 'hit', 's' => 'stay')
+  end
+
   def show_result
     if tie?
-      prompt "It's a tie!"
+      winner = "Nobody"
     elsif someone_busted?
       winner = player.busted? ? dealer.name : player.name
-      display_winner(winner)
     else
       winner = (player.total > dealer.total ? player.name : dealer.name)
-      display_winner(winner)
     end
+
+    display_winner winner
   end
 
   def tie?

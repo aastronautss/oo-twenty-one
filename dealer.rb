@@ -1,5 +1,5 @@
 class Dealer < Participant
-  ROBOTS = ['R2D2', 'Hal', 'Chappie', 'Sonny', 'Number 5']
+  ROBOTS = ['R2D2', 'Hal', 'Chappie', 'Sonny', 'Number 5'].freeze
 
   def set_name
     @name = ROBOTS.sample

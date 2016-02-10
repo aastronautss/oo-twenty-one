@@ -22,6 +22,6 @@ class Participant
 
   def show_hand
     prompt "#{name}'s hand:"
-    puts "#{hand}"
+    puts hand.to_s
   end
 end

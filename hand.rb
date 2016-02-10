@@ -14,11 +14,11 @@ class Hand
   end
 
   def total
-    aces = @cards.select { |card| card.ace? } # First take out aces
+    aces = @cards.select(&:ace?) # First take out aces
     hand_minus_aces = @cards - aces
 
-    sum = hand_minus_aces.inject(0) do |sum, card| # Sum up non-ace cards
-      sum += evaluate_non_ace_card card
+    sum = hand_minus_aces.inject(0) do |running_total, card|
+      running_total + evaluate_non_ace_card(card)
     end
 
     aces.each do |_| # Add aces
@@ -44,6 +44,6 @@ class Hand
   end
 
   def to_s
-    @cards.map { |card| "#{card}" }.join("\n")
+    @cards.map(&:to_s).join("\n")
   end
 end
