@@ -24,4 +24,8 @@ class Participant
     prompt "#{name}'s hand:"
     puts hand.to_s
   end
+
+  def blackjack?
+    total == 21 && hand.size = 2
+  end
 end

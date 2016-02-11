@@ -14,11 +14,20 @@ class TwentyOneGame
   end
 
   def play
+    display_welcome_message
+    loop do
+      play_round
+      break unless play_again?
+    end
+    display_goodbye_message
+  end
+
+  def play_round
     deal_cards
     show_flop
 
     player_turn
-    dealer_turn unless player.busted?
+    dealer_turn unless player.busted? || player.blackjack?
 
     show_result
   end
@@ -37,22 +46,14 @@ class TwentyOneGame
 
   def player_turn
     loop do
-      choice = player_prompt
-
-      if choice == 's'
-        prompt "#{player.name} stays."
-        break
-      elsif player.busted?
+      if player.busted?
         prompt "#{player.name} busts!"
         break
-      else
-        player.add_card(deck.draw_card)
-        player.show_hand
-        if player.busted?
-          prompt "#{player.name} busts!"
-          break
-        end
       end
+
+      choice = player_prompt
+      hit(player) if choice == 'h'
+      player.show_hand
     end
   end
 
@@ -69,7 +70,7 @@ class TwentyOneGame
         break
       else
         prompt "#{dealer.name} hits!"
-        dealer.add_card(deck.draw_card)
+        hit(dealer)
       end
     end
   end
@@ -102,6 +103,22 @@ class TwentyOneGame
 
   def display_winner(winner)
     prompt "#{winner} wins!"
+  end
+
+  def hit(participant)
+    participant.add_card(deck.draw_card)
+  end
+
+  def play_again?
+    bool_input "Play again?"
+  end
+
+  def display_welcome_message
+    prompt "Welcome to Twenty-One!"
+  end
+
+  def display_goodbye_message
+    prompt "Thanks for playing Twenty-One! Goodbye!"
   end
 end
 

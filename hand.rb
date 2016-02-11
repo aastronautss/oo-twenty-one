@@ -43,6 +43,10 @@ class Hand
     total > 21
   end
 
+  def size
+    @cards.length
+  end
+
   def to_s
     @cards.map(&:to_s).join("\n")
   end
